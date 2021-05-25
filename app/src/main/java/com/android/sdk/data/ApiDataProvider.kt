@@ -1,13 +1,19 @@
 package com.android.sdk.data
 
+import androidx.compose.ui.graphics.Color
 import com.android.sdk.R
-import com.guru.composecookbook.R
 import com.android.sdk.data.model.Item
 import com.android.sdk.data.model.Tweet
+import com.android.sdk.theme.graySurface
 import com.android.sdk.ui.home.HomeScreenItems
-import com.guru.composecookbook.ui.home.HomeScreenItems
+import com.android.sdk.ui.home.detail.entities.ApiDetail
 
-object DemoDataProvider {
+object ApiDataProvider {
+
+  fun defaultSurfaceGradient(isDark: Boolean) =
+    if (isDark) listOf(graySurface, Color.Black) else listOf(Color.White, Color.LightGray)
+
+  val apiDetail = ApiDetail("XJ", "https://only_for_test.com/")
 
   val itemList = listOf(
     Item(

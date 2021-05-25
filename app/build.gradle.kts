@@ -69,11 +69,6 @@ dependencies {
     implementation("com.google.android.material:material:${Dependencies.material}")
     implementation("androidx.multidex:multidex:${Dependencies.multidex}")
 
-    //google play services
-    implementation("com.google.android.gms:play-services-ads:${Dependencies.playServicesAds}")
-    implementation("com.google.android.libraries.maps:maps:${Dependencies.googleMaps}")
-    implementation("com.google.android.gms:play-services-maps:${Dependencies.playServicesMaps}")
-
     //compose libs
     implementation("androidx.compose.ui:ui:${Dependencies.compose}")
     implementation("androidx.compose.material:material:${Dependencies.compose}")

@@ -27,7 +27,7 @@
         </activity>
 
         <activity
-            android:name=".ui.home.lists.ListViewActivity"
+            android:name=".ui.home.detail.ApiDetailActivity"
             android:label="@string/title_activity_list_view"
             android:theme="@style/Theme.Compose.NoActionBar" />
     </application>

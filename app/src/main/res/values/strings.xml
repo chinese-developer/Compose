@@ -2,12 +2,7 @@
     <string name="app_name">Compose</string>
 
     <!-- Accessibility strings -->
-    <string name="a11y_bottom_navigation_bar">Bottom navigation bar with Having actions </string>
-
-    <string name="navigation_item_home">Home</string>
-    <string name="navigation_item_widgets">Widgets</string>
-    <string name="navigation_item_animation">Anim</string>
+    <string name="navigation_item_apis">Apis</string>
     <string name="navigation_item_demoui">DemoUI</string>
-    <string name="navigation_item_profile">Template</string>
     <string name="title_activity_list_view">My Compose App</string>
 </resources>

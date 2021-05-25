@@ -22,8 +22,6 @@ object Dependencies {
     const val appcompat = "1.2.0"
     const val paletteKtx = "1.0.0"
     const val material = "1.2.1"
-    const val playServicesAds = "19.6.0"
-    const val googleMaps = "3.1.0-beta"
     const val playServicesMaps = "17.0.0"
     const val exoplayer = "2.14.0"
     const val lifecycleRuntimeKtx = "2.3.1"
