@@ -1,7 +1,9 @@
 plugins {
     id("com.android.application")
     id("kotlin-android")
+    id("kotlin-parcelize")
     id("kotlin-kapt")
+//    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -17,9 +19,12 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        release {
+        getByName("release") {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -28,7 +33,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
-        useIR = true
         freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
     }
     kapt {
@@ -39,9 +43,6 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion = Dependencies.compose
-    }
-    lint {
-        isAbortOnError = false
     }
     packagingOptions {
         resources.excludes.apply {
@@ -58,18 +59,17 @@ android {
 
 dependencies {
 
-    debugImplementation("org.jetbrains.kotlin:kotlin-reflect:${Dependencies.kotlin}")
-
+    // Keep updating
     implementation("com.github.Gurupreet:FontAwesomeCompose:${Dependencies.fontAwesomeCompose}")
-
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Dependencies.kotlin}")
     implementation("androidx.core:core-ktx:${Dependencies.coreKtx}")
     implementation("androidx.appcompat:appcompat:${Dependencies.appcompat}")
-    implementation("androidx.palette:palette-ktx:${Dependencies.paletteKtx}")
     implementation("com.google.android.material:material:${Dependencies.material}")
-    implementation("androidx.multidex:multidex:${Dependencies.multidex}")
 
-    //compose libs
+    // Kotlin
+    debugImplementation("org.jetbrains.kotlin:kotlin-reflect:${Dependencies.Kotlin.version}")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Dependencies.Kotlin.version}")
+
+    // Compose
     implementation("androidx.compose.ui:ui:${Dependencies.compose}")
     implementation("androidx.compose.material:material:${Dependencies.compose}")
     implementation("androidx.compose.material:material-icons-extended:${Dependencies.compose}")
@@ -77,22 +77,27 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling:${Dependencies.compose}")
     debugImplementation("androidx.compose.ui:ui-tooling:${Dependencies.compose}")
 
-    //paging
-    implementation("androidx.paging:paging-runtime:${Dependencies.paging}")
-    // Jetpack Compose Integration
-    implementation("androidx.paging:paging-compose:${Dependencies.pagingCompose}")
-
     // Added starting from compose alpha-12
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:${Dependencies.lifecycleViewModelCompose}")
     implementation("androidx.activity:activity-compose:${Dependencies.activityCompose}")
     implementation("androidx.constraintlayout:constraintlayout-compose:${Dependencies.constraintLayoutCompose}")
+    implementation("androidx.navigation:navigation-compose:${Dependencies.navCompose}")
 
-    //lottie
+    // Paging
+    implementation("androidx.paging:paging-runtime:${Dependencies.paging}")
+    // Paging Jetpack Compose Integration
+    implementation("androidx.paging:paging-compose:${Dependencies.pagingCompose}")
+
+    // Lottie
     implementation("com.airbnb.android:lottie:${Dependencies.lottie}")
-    //lottie for compose
+    // Lottie Jetpack Compose Integration
     implementation("com.airbnb.android:lottie-compose:${Dependencies.lottieCompose}")
 
-    implementation("com.google.android.exoplayer:exoplayer:${Dependencies.exoplayer}")
+    // Stable
+    implementation("androidx.palette:palette-ktx:${Dependencies.paletteKtx}")
+    implementation("androidx.multidex:multidex:${Dependencies.multidex}")
+
+    
     //Network libs
     // Room
     implementation("androidx.room:room-runtime:${Dependencies.room}")
@@ -100,33 +105,39 @@ dependencies {
     kapt("androidx.room:room-compiler:${Dependencies.room}")
     // annotationProcessor "android.arch.persistence.room:compiler:$room_version"
 
+    // Hilt
+//    implementation("com.google.dagger:hilt-android:${Dependencies.hilt}")
+//    kapt("com.google.dagger:hilt-android-compiler:${Dependencies.hilt}")
+//    implementation("androidx.hilt:hilt-lifecycle-viewmodel:${Dependencies.lifecycleViewModelHilt}")
+//    kapt("androidx.hilt:hilt-compiler:${Dependencies.lifecycleViewModelHilt}")
+
     implementation("com.google.accompanist:accompanist-coil:${Dependencies.accompanistCoil}")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:${Dependencies.lifecycleRuntimeKtx}")
-    //Retrofit
+    // Retrofit
     implementation("com.squareup.retrofit2:retrofit:${Dependencies.retrofit}")
+    implementation("com.squareup.retrofit2:converter-gson:${Dependencies.retrofit}")
     implementation("com.squareup.okhttp3:logging-interceptor:${Dependencies.loggingInterceptor}")
     implementation("com.google.code.gson:gson:${Dependencies.gson}")
-    implementation("com.squareup.retrofit2:converter-gson:${Dependencies.retrofitConverterGson}")
-    //coroutines
+    // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Dependencies.coroutine}")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Dependencies.coroutine}")
-    //lifecycle + viewmodel
+    // Lifecycle + Viewmodel
     implementation("androidx.lifecycle:lifecycle-extensions:${Dependencies.androidLifecycleGrouped}")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:${Dependencies.androidLifecycleGrouped}")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:${Dependencies.androidLifecycleGrouped}")
 
+
+    //Test libs
     testImplementation("org.junit.jupiter:junit-jupiter-api:${Dependencies.junitJupiterApi}")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:${Dependencies.junitJupiterEngine}")
     testImplementation("com.google.truth:truth:${Dependencies.truth}")
 
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:${Dependencies.kotlin}")
-    testImplementation("org.jetbrains.kotlin:kotlin-test:${Dependencies.kotlin}")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:${Dependencies.Kotlin.version}")
+    testImplementation("org.jetbrains.kotlin:kotlin-test:${Dependencies.Kotlin.version}")
 
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:${Dependencies.compose}")
     debugImplementation("androidx.compose.ui:ui-test-manifest:${Dependencies.compose}")
     androidTestImplementation("androidx.activity:activity-compose:${Dependencies.activityCompose}")
     androidTestImplementation("androidx.test.ext:junit:${Dependencies.androidXJunit}")
-
-    implementation("androidx.navigation:navigation-compose:${Dependencies.navCompose}")
 
 }
